@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Autor: Gilberto Valenzuela
+
 public class prueba : MonoBehaviour
 {
     // Start is called before the first frame update

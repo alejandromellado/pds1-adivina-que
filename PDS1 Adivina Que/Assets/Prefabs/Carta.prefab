@@ -112,3 +112,6 @@ MonoBehaviour:
   texturaAnverso: {fileID: 0}
   texturaReverso: {fileID: 2800000, guid: e810aa7fc73e0b940bcb30062a0baab3, type: 3}
   tiempoDelay: 1
+  crearCartas: {fileID: 0}
+  Mostrando: 0
+  interfazUsuario: {fileID: 0}

@@ -13,9 +13,12 @@ public class Carta : MonoBehaviour
     public GameObject crearCartas;
     public bool Mostrando;
 
+    public GameObject interfazUsuario;
+
     void Awake()
     {
         crearCartas = GameObject.Find("scripts");
+        interfazUsuario= GameObject.Find("scripts");
     }
 
     void Start()
@@ -25,8 +28,15 @@ public class Carta : MonoBehaviour
 
     public void OnMouseDown()
     {
-        print(idCarta.ToString());
+        if (!interfazUsuario.GetComponent<InterfazUsuario>().menuMostrado)
+        {
+            MostrarCarta();
+        }
+        {
+
+        }
         MostrarCarta();
+        
     }
 
     // Update is called once per frame

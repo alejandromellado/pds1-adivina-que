@@ -18,16 +18,37 @@ public class CrearCartas : MonoBehaviour
     public Text textoContadorIntentos;
     public  Carta CartaMostrada;
     public bool sePuedeMostrar= true;
+    public InterfazUsuario interfazUsuario;
 
+    public int numParejasEncontradas;
+
+    public void Reiniciar()
+    {
+        ancho = 3;
+        cartas.Clear();
+
+        GameObject[] cartasEli = GameObject.FindGameObjectsWithTag("Carta");
+        for (int i = 0; i < cartasEli.Length; i++)
+        {
+            DestroyObject(cartasEli[i]);
+        }
+        contadorClicks = 0;
+        textoContadorIntentos.text = "Intentos";
+        CartaMostrada = null;
+        sePuedeMostrar = true;
+        Crear();
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
-        Crear();
+        
     }
-
+    
 
     public void Crear()
     {
+        ancho = 2;
         int cont = 0;
         for (int i = 0; i < ancho; i++)
         {
@@ -40,7 +61,8 @@ public class CrearCartas : MonoBehaviour
                 cartas.Add(cartaTemp);
 
                 cartaTemp.GetComponent<Carta>().posicionOriginal = posicionTemp;
-                cartaTemp.GetComponent<Carta>().idCarta = cont;
+                //cartaTemp.GetComponent<Carta>().idCarta = cont;
+
                 cartaTemp.transform.parent = CartasParent;
 
                 cont++;
@@ -52,9 +74,35 @@ public class CrearCartas : MonoBehaviour
 
     void AsignarTexturas()
     {
+
+        int[] arrayTemp = new int[texturas.Length];
+
+        for (int i = 0; i <= texturas.Length-1; i++)
+        {
+            arrayTemp[i] = i;
+        }
+
+        for (int t = 0; t < arrayTemp.Length; t++)
+        {
+            int tmp = arrayTemp[t];
+            int r = Random.Range(t, arrayTemp.Length);
+            arrayTemp[t] = arrayTemp[r];
+            arrayTemp[r] = tmp;
+        }
+
+        int[] arrayDefinitivo = new int[(ancho * ancho)/2];
+
+        for (int i = 0; i < arrayDefinitivo.Length; i++)
+        {
+            arrayDefinitivo[i] = arrayTemp[i];
+
+        }
+
         for (int i = 0; i < cartas.Count; i++)
         {
-            cartas[i].GetComponent<Carta>().AsignarTextura(texturas[(i)/2]);
+            cartas[i].GetComponent<Carta>().AsignarTextura(texturas[(arrayDefinitivo[i/2])]);
+            cartas[i].GetComponent<Carta>().idCarta = i/2;
+            print(i / 2);
         }
     }
 
@@ -84,16 +132,23 @@ public class CrearCartas : MonoBehaviour
         }
         else
         {
-            
+            contadorClicks++;
             if (CompararCartas(_carta.gameObject, CartaMostrada.gameObject))
             {
-                print("Felicidades!");
+                print("Encontrase una pareja");
+                numParejasEncontradas++;
+                if (numParejasEncontradas == cartas.Count / 2)
+                {
+                    print("Haz ganado");
+                    interfazUsuario.MostrarMenuGanador();
+                }
+                
             }
             else
             {
                 _carta.EsconderCarta();
                 CartaMostrada.EsconderCarta();
-                contadorClicks++;
+                
             }
             CartaMostrada = null;
         }
@@ -104,7 +159,8 @@ public class CrearCartas : MonoBehaviour
     public bool CompararCartas(GameObject carta1, GameObject carta2)
     {
         bool resultado;
-        if (carta1.GetComponent<MeshRenderer>().material.mainTexture== carta2.GetComponent<MeshRenderer>().material.mainTexture)
+        //if (carta1.GetComponent<MeshRenderer>().material.mainTexture== carta2.GetComponent<MeshRenderer>().material.mainTexture)
+        if (carta1.GetComponent<Carta>().idCarta == carta2.GetComponent<Carta>().idCarta)
         {
             resultado = true;
         }

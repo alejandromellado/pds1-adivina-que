@@ -14,10 +14,10 @@ public class DatabaseConnection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach (string t in ObtenerTemas("Español"))
-        {
-            print(t);
-        }
+        //foreach (string t in ObtenerTemas("Español"))
+        //{
+        //    print(t);
+        //}
     }
 
     // Update is called once per frame

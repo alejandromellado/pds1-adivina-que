@@ -14,7 +14,7 @@ public class DatabaseConnection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RegistrarUsuario("Alex");
+        
     }
 
     // Update is called once per frame
@@ -115,5 +115,36 @@ public class DatabaseConnection : MonoBehaviour
         }
 
         Debug.Log("Se añadieron " + registrosCreados + " registros a la tabla 'jugador'.");
+    }
+
+    public List<string> ObtenerCartas(string tema)
+    {
+        List<string> cartas = new List<string>();
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM tema WHERE (idTema = (SELECT idTema FROM idTema WHERE (titulo = @tema)));";
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        // Agregar los nombres de los temas a la lista
+                        cartas.Add(reader["titulo"].ToString());
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+        }
+
+        return cartas;
     }
 }

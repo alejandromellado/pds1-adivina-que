@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using TMPro;
+using UnityEngine.UIElements;
 
 public class MenuGaleria : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class MenuGaleria : MonoBehaviour
     // Referencias a elementos en la jerarquia
     public TMP_Dropdown dropdownMaterias;
     public TMP_Dropdown dropdownTemas;
+    public GameObject scrollView;
     
 
     // Start is called before the first frame update
@@ -25,7 +27,7 @@ public class MenuGaleria : MonoBehaviour
 
         // Obtener la lista de materias de la base de datos y cargarla en el dropdown correspondiente
         List<string> materias = database.ObtenerMaterias();
-        CargarOpciones(dropdownMaterias, materias);
+        CargarDropdown(dropdownMaterias, materias);
 
         // Llamar el metodo correspondiente para cargar la lista de temas por primera vez
         MateriaFueSeleccionada(dropdownMaterias);
@@ -45,16 +47,25 @@ public class MenuGaleria : MonoBehaviour
 
         List<string> temas = database.ObtenerTemas(materiaSeleccionada);
         
-        CargarOpciones(dropdownTemas, temas);
+        CargarDropdown(dropdownTemas, temas);
     }
 
     /* Carga una lista de strings a un elemento de tipo Dropdown.
      * Recibe el elemnto Dropdown al que se introducen las opciones y la una lista de strings. */
-    void CargarOpciones(TMP_Dropdown dropdown, List<string> opciones)
+    void CargarDropdown(TMP_Dropdown dropdown, List<string> opciones)
     {
         dropdown.ClearOptions();
         dropdown.AddOptions(opciones);
         dropdown.RefreshShownValue();
+    }
+
+    void CargarScrollView(List<string> opciones)
+    {
+        foreach (string opcion in opciones)
+        {
+            Toggle toggle = new Toggle(opcion);
+            
+        }
     }
 
 }

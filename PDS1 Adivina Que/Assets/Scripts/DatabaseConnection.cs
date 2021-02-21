@@ -14,10 +14,7 @@ public class DatabaseConnection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //foreach (string t in ObtenerTemas("Español"))
-        //{
-        //    print(t);
-        //}
+        RegistrarUsuario("Alex");
     }
 
     // Update is called once per frame
@@ -93,4 +90,30 @@ public class DatabaseConnection : MonoBehaviour
         return temas;
     }
 
+    /* Registra el nombre de un jugador en la base de datos, en caso de que ya este registrado el jugador el comando es ignorado. 
+     * Recibe el nombre en forma de string. */
+    public void RegistrarUsuario(string nombre)
+    {
+        int registrosCreados = 0;
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "INSERT OR IGNORE INTO jugador(nombre)VALUES(@nombre);";
+
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@nombre", nombre));
+
+                registrosCreados = command.ExecuteNonQuery();
+            }
+
+            connection.Close();
+        }
+
+        Debug.Log("Se añadieron " + registrosCreados + " registros a la tabla 'jugador'.");
+    }
 }

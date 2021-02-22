@@ -117,7 +117,7 @@ public class DatabaseConnection : MonoBehaviour
         Debug.Log("Se añadieron " + registrosCreados + " registros a la tabla 'jugador'.");
     }
 
-    public List<string> ObtenerCartas(string tema)
+    public List<string> CargarGaleria(string tema)
     {
         List<string> cartas = new List<string>();
 
@@ -130,12 +130,51 @@ public class DatabaseConnection : MonoBehaviour
             {
                 command.CommandText = "SELECT * FROM tema WHERE (idTema = (SELECT idTema FROM idTema WHERE (titulo = @tema)));";
 
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@tema", tema));
+
                 using (IDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         // Agregar los nombres de los temas a la lista
                         cartas.Add(reader["titulo"].ToString());
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+        }
+
+        return cartas;
+    }
+
+    public List<string> ObtenerCartas(int idMateria)
+    {
+        List<string> cartas = new List<string>();
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM carta WHERE idTema IN (SELECT idTema FROM tema WHERE(idMateria = @idMateria));";
+
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@idMateria", idMateria.ToString()));
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        // Agregar los nombres de los temas a la lista
+                        cartas.Add(reader["imagen"].ToString());
                     }
 
                     reader.Close();

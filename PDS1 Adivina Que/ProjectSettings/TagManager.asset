@@ -45,3 +45,6 @@ TagManager:
   - name: Images
     uniqueID: 1091729457
     locked: 0
+  - name: Interfaz
+    uniqueID: 3309337927
+    locked: 0

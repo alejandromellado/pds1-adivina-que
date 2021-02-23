@@ -3,8 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using TMPro;
+
+
 public class MenuPrincipal : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI labelNombre;
+
+    void Start()
+    {
+        if (DataMantainer.Nombre != null)
+        {
+            labelNombre.text = "Bienvenid@\n" + DataMantainer.Nombre;
+        }
+        else
+        {
+            labelNombre.text = "Bienvenid@\n$NOMBRE";
+        }
+            
+    }
+
     public void CargarJuego()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;

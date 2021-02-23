@@ -10,7 +10,6 @@ public class MenuRegistro : MonoBehaviour
 
     // Referencias a elementos en la jerarquia
     public TMP_InputField inputField;
-    public TextMeshProUGUI textBienvenido;
     public GameObject menuRegistro;
     public GameObject menuInicio;
     public GameObject fondo;
@@ -37,7 +36,7 @@ public class MenuRegistro : MonoBehaviour
             menuRegistro.SetActive(false);
             menuInicio.SetActive(true);
             fondo.SetActive(true);
-            textBienvenido.text = "Bienvenid@\n" + nombre;
+            DataMantainer.Nombre = nombre;
         }
 
         else { Debug.LogWarning("El nombre introducido no es valido."); }

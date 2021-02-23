@@ -186,4 +186,38 @@ public class DatabaseConnection : MonoBehaviour
 
         return cartas;
     }
+
+    public string ObtenerMateria(int id)
+    {
+        string materia = "";
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT nombre FROM materia WHERE(idMateria = @idMateria));";
+
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@idMateria", id.ToString()));
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        materia = (reader["nombre"].ToString());
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+
+            return materia;
+        }
+    }
 }

@@ -54,5 +54,9 @@ public class MenuMaterias : MonoBehaviour
         {
             DataMantainer.Dificultad = 3;
         }
+
+        Debug.Log("Materia" + DataMantainer.Materia);
+        Debug.Log("Dificultad: " + DataMantainer.Dificultad);
+        Debug.Log("idMateria " + DataMantainer.IdMateria);
     }
 }

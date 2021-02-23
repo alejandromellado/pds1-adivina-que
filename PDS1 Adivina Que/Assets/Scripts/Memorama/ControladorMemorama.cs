@@ -23,37 +23,58 @@ public class ControladorMemorama : MonoBehaviour
     // Estas variables determinan la cantidad de cartas y el espacio entre las cartas en el eje X y Y
     public int filas;
     public int columnas;
-    public const float offsetX = 2.5f;
-    public const float offsetY = -2.5f;
+    public float offsetX = 2.5f;
+    public float offsetY = -2.5f;
 
     // Referencias
     [SerializeField] CartaMemorama cartaOriginal;
     [SerializeField] TextMeshProUGUI scoreLabel;
+    [SerializeField] TextMeshProUGUI materiaLabel;
     [SerializeField] int idMateria;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        ConfigurarPartida();
         CargarImagenes(idMateria, filas, columnas);
         CrearCartas();
     }
 
     void ConfigurarPartida()
     {
+        materiaLabel.text = DataMantainer.Materia;
+
         switch (DataMantainer.Dificultad)
         {
             case 1:
+                // Colocar carta original en posicion correcta
                 cartaOriginal.transform.position = new Vector3(-2.55f, 1f, 0f);
                 break;
+
             case 2:
-                cartaOriginal.transform.position = new Vector3(-2.55f, 1f, 0f);
+                filas = 2;
+                columnas = 5;
+
+                // Colocar carta original en posicion correcta
+                cartaOriginal.transform.position = new Vector3(-5.1f, 1f, 0f);
+                cartaOriginal.transform.localScale = new Vector3(.4f, .4f, .4f);
+
                 break;
+
             case 3:
-                cartaOriginal.transform.position = new Vector3(-3.8f, 1.5f, 0f);
+                filas = 4;
+                columnas = 4;
+
+                // Colocar carta original en posicion correcta
+                cartaOriginal.transform.position = new Vector3(-3.18f, 2.12f, 0f);
+                cartaOriginal.transform.localScale = new Vector3(.35f, .35f, .35f);
+                offsetX = 2f;
+                offsetY = -2f;
+
                 break;
+
             default:
-                cartaOriginal.transform.position = new Vector3(-2.55f, 1f, 0f);
                 break;
         }
     }

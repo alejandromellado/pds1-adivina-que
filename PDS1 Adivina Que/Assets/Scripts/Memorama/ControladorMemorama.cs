@@ -43,6 +43,7 @@ public class ControladorMemorama : MonoBehaviour
 
     void ConfigurarPartida()
     {
+        idMateria = DataMantainer.IdMateria;
         materiaLabel.text = DataMantainer.Materia;
 
         switch (DataMantainer.Dificultad)

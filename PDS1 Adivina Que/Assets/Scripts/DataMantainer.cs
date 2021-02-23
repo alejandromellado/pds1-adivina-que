@@ -4,8 +4,10 @@ using UnityEngine;
 
 public static class DataMantainer
 {
-    private static string materia, nombre;
-    private static int dificultad, idMateria;
+    private static string materia = "";
+    private static string nombre = "";
+    private static int dificultad = 1;
+    private static int idMateria = 1;
 
     public static string Materia
     {

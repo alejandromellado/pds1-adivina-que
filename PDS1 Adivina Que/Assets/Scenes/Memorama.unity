@@ -397,11 +397,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce30956230c77646b2ece3b8c9f7554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filas: 4
-  columnas: 4
+  filas: 2
+  columnas: 3
   cartaOriginal: {fileID: 510426180}
   scoreLabel: {fileID: 779547881}
-  idMateria: 5
+  idMateria: 1
 --- !u!4 &455416572
 Transform:
   m_ObjectHideFlags: 0

@@ -38,10 +38,15 @@ public class CartaMemorama : MonoBehaviour
     {
         reversoDeCarta.SetActive(true);
     }
-
+    IEnumerator MostrarInicio()
+    {
+        reversoDeCarta.SetActive(false);
+        yield return new WaitForSeconds(4);
+        reversoDeCarta.SetActive(true);
+    }
     // Start is called before the first frame update
     void Start()
     {
-
+        StartCoroutine(MostrarInicio());
     }
 }

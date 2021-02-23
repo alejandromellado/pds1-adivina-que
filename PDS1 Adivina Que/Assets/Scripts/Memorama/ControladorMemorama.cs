@@ -169,8 +169,8 @@ public class ControladorMemorama : MonoBehaviour
         foreach (var carta in cartas)
         {
             Debug.Log(string.Format("/Cartas/{0}/{1}_x", id, carta));
-            imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}_p", id, carta)));
-            imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}_r", id, carta)));
+            imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}p", id, carta)));
+            imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}r", id, carta)));
         }
 
         return imagenes.ToArray();

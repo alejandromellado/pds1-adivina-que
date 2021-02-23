@@ -39,6 +39,24 @@ public class ControladorMemorama : MonoBehaviour
         CrearCartas();
     }
 
+    void ConfigurarPartida()
+    {
+        switch (DataMantainer.Dificultad)
+        {
+            case 1:
+                cartaOriginal.transform.position = new Vector3(-2.55f, 1f, 0f);
+                break;
+            case 2:
+                cartaOriginal.transform.position = new Vector3(-2.55f, 1f, 0f);
+                break;
+            case 3:
+                cartaOriginal.transform.position = new Vector3(-3.8f, 1.5f, 0f);
+                break;
+            default:
+                cartaOriginal.transform.position = new Vector3(-2.55f, 1f, 0f);
+                break;
+        }
+    }
 
     void CrearCartas()
     {

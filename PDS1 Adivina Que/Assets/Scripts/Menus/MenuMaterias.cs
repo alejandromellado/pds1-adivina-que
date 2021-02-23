@@ -38,9 +38,25 @@ public class MenuMaterias : MonoBehaviour
         DataMantainer.IdMateria = idMateria;
     }
 
-    public void SeleccionarDificultad(int nivel)
+    public void SeleccionarDificultad()
     {
         var selectedToggle = toggleGroup.ActiveToggles().FirstOrDefault();
 
+        if (selectedToggle == facil)
+        {
+            DataMantainer.Dificultad = 1;
+        }
+        else if (selectedToggle == medio)
+        {
+            DataMantainer.Dificultad = 2;
+        }
+        else
+        {
+            DataMantainer.Dificultad = 3;
+        }
+
+        Debug.Log("Materia" + DataMantainer.Materia);
+        Debug.Log("Dificultad: " + DataMantainer.Dificultad);
+        Debug.Log("idMateria " + DataMantainer.IdMateria);
     }
 }

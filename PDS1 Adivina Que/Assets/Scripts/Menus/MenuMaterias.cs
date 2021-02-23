@@ -1,10 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuMaterias : MonoBehaviour
 {
     string materia;
+
+    [SerializeField] ToggleGroup toggleGroup;
+    [SerializeField] Toggle facil;
+    [SerializeField] Toggle medio;
+    [SerializeField] Toggle dificil;
 
     public void SeleccionarMateria(int idMateria)
 
@@ -29,5 +36,11 @@ public class MenuMaterias : MonoBehaviour
         }
 
         DataMantainer.IdMateria = idMateria;
+    }
+
+    public void SeleccionarDificultad(int nivel)
+    {
+        var selectedToggle = toggleGroup.ActiveToggles().FirstOrDefault();
+
     }
 }

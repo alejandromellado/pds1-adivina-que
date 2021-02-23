@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filas: 2
-  columnas: 4
+  columnas: 3
   cartaOriginal: {fileID: 510426180}
   scoreLabel: {fileID: 779547881}
   idMateria: 5

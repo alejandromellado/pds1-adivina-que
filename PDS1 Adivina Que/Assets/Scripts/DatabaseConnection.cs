@@ -128,7 +128,7 @@ public class DatabaseConnection : MonoBehaviour
             // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "SELECT * FROM tema WHERE (idTema = (SELECT idTema FROM idTema WHERE (titulo = @tema)));";
+                command.CommandText = "SELECT * FROM carta WHERE (idTema = (SELECT idTema FROM tema WHERE (nombre = @tema)));";
 
                 // Especificar el comando como una consulta y añadir el parametro 'nombre'
                 command.CommandType = CommandType.Text;

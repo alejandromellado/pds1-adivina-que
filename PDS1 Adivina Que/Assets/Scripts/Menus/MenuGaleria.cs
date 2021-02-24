@@ -4,6 +4,7 @@ using UnityEngine;
 
 using TMPro;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class MenuGaleria : MonoBehaviour
 {
@@ -12,8 +13,13 @@ public class MenuGaleria : MonoBehaviour
     // Referencias a elementos en la jerarquia
     public TMP_Dropdown dropdownMaterias;
     public TMP_Dropdown dropdownTemas;
+
     public GameObject scrollView;
-    
+    public GameObject viewPort;
+    public GameObject contentTemplate;
+    public GameObject toggleTemplate;
+
+    private GameObject currentContent;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +31,19 @@ public class MenuGaleria : MonoBehaviour
             MateriaFueSeleccionada(dropdownMaterias); 
         });
 
+        // Establecer un Listener para ejecutar codigo cuando se seleccione un tema
+        dropdownTemas.onValueChanged.AddListener(delegate
+        {
+            CargarScrollView();
+        });
+
         // Obtener la lista de materias de la base de datos y cargarla en el dropdown correspondiente
         List<string> materias = database.ObtenerMaterias();
         CargarDropdown(dropdownMaterias, materias);
 
         // Llamar el metodo correspondiente para cargar la lista de temas por primera vez
         MateriaFueSeleccionada(dropdownMaterias);
+        CargarScrollView();
     }
 
     // Update is called once per frame
@@ -48,6 +61,7 @@ public class MenuGaleria : MonoBehaviour
         List<string> temas = database.ObtenerTemas(materiaSeleccionada);
         
         CargarDropdown(dropdownTemas, temas);
+        CargarScrollView();
     }
 
     /* Carga una lista de strings a un elemento de tipo Dropdown.
@@ -59,13 +73,40 @@ public class MenuGaleria : MonoBehaviour
         dropdown.RefreshShownValue();
     }
 
-    void CargarScrollView(List<string> opciones)
+    void CargarScrollView()
     {
-        foreach (string opcion in opciones)
+        Debug.Log("CargarScrollView() ha sido llamado");
+
+        // Revisar si hay contenido previo a cargar cartas
+        if (currentContent != null)
         {
-            Toggle toggle = new Toggle(opcion);
-            
+            Destroy(currentContent);
         }
+
+        // Obtener datos necesarios para cargar cartas
+        var tema = dropdownTemas.options[dropdownTemas.value].text;
+        var cartas = database.CargarGaleria(tema);
+        Debug.Log("Tema escogido: " + tema);
+
+        // Instanciar el contenedor para el ScrollView y activar la instancia
+        currentContent = Instantiate(contentTemplate);
+        currentContent.transform.SetParent(viewPort.transform, false);
+
+        scrollView.GetComponent<ScrollRect>().content = currentContent.GetComponent<RectTransform>();
+
+        currentContent.SetActive(true);
+
+        // Crear un toggle para cada carta y asignarle el texto adecuado
+        foreach (var carta in cartas)
+        {
+            Debug.Log(carta);
+
+            GameObject nuevoBoton = Instantiate(toggleTemplate);
+            nuevoBoton.transform.SetParent(currentContent.transform, false);
+            nuevoBoton.GetComponent<ToggleScrollView>().SetText(carta);
+            nuevoBoton.SetActive(true);
+        }
+
     }
 
 }

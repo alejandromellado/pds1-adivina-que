@@ -152,7 +152,7 @@ public class DatabaseConnection : MonoBehaviour
         return cartas;
     }
 
-    public List<string> ObtenerCartas(int idMateria)
+    public List<string> ObtenerCartas(int idTema)
     {
         List<string> cartas = new List<string>();
 
@@ -163,11 +163,11 @@ public class DatabaseConnection : MonoBehaviour
             // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "SELECT * FROM carta WHERE idTema IN (SELECT idTema FROM tema WHERE(idMateria = @idMateria));";
+                command.CommandText = "SELECT * FROM carta WHERE (idTema = @idTema);";
 
                 // Especificar el comando como una consulta y añadir el parametro 'nombre'
                 command.CommandType = CommandType.Text;
-                command.Parameters.Add(new SqliteParameter("@idMateria", idMateria.ToString()));
+                command.Parameters.Add(new SqliteParameter("@idTema", idTema.ToString()));
 
                 using (IDataReader reader = command.ExecuteReader())
                 {
@@ -219,5 +219,41 @@ public class DatabaseConnection : MonoBehaviour
 
             return materia;
         }
+    }
+
+    public List<string[]> ObtenerPuntajes(int idMateria)
+    {
+        var resultados = new List<string[]>();
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT nombre, puntaje FROM jugador j INNER JOIN partida p WHERE (J.idJugador = p.idJugador AND p.idMateria = @idMateria) ORDER BY puntaje DESC;";
+
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@idMateria", idMateria));
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var resultado = new string[2];
+                        resultado[0] = (reader["nombre"].ToString());
+                        resultado[1] = (reader["puntaje"].ToString());
+
+                        resultados.Add(resultado);
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+        }
+
+        return resultados;
     }
 }

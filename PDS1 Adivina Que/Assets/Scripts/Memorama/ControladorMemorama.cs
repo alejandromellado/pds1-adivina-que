@@ -44,7 +44,7 @@ public class ControladorMemorama : MonoBehaviour
     void Start()
     {
         ConfigurarPartida();
-        CargarImagenes(idMateria, filas, columnas);
+        CargarImagenes(filas, columnas);
         CrearCartas();
     }
 
@@ -211,8 +211,9 @@ public class ControladorMemorama : MonoBehaviour
 
     /* Funciones para pares de cartas aleatorios */
 
-    void CargarImagenes(int idMateria, int filas, int columnas)
+    void CargarImagenes(int filas, int columnas)
     {
+        int idMateria = DataMantainer.IdMateria;
         paresTotales = (filas * columnas) / 2;
 
         database = GetComponent<DatabaseConnection>();

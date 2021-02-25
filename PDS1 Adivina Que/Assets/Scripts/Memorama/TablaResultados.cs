@@ -17,10 +17,6 @@ public class TablaResultados : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //database = GetComponent<DatabaseConnection>();
-
-        //var puntajes = database.ObtenerPuntajes(1);
-        //CargarPuntajes(puntajes);
 
     }
 

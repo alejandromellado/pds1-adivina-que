@@ -11,7 +11,9 @@ public class ControladorMemorama : MonoBehaviour
     private CartaMemorama _primerSeleccion;
     private CartaMemorama _segundaSeleccion;
     Dictionary<int, int> pares;
+
     private int paresEncontrados;
+    private int paresTotales;
 
     public bool puedeEscoger
     {
@@ -193,11 +195,11 @@ public class ControladorMemorama : MonoBehaviour
 
     void CargarImagenes(int idMateria, int filas, int columnas)
     {
-        int num_pares = (filas * columnas) / 2;
+        paresTotales = (filas * columnas) / 2;
 
         database = GetComponent<DatabaseConnection>();
 
-        List<string> cartas = SeleccionAleatoria(num_pares, database.ObtenerCartas(DataMantainer.IdTema));
+        List<string> cartas = SeleccionAleatoria(paresTotales, database.ObtenerCartas(DataMantainer.IdTema));
         imagenes = EncontrarImagenes(cartas, idMateria);
 
     }

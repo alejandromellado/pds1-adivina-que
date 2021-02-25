@@ -20,7 +20,7 @@ public class TablaResultados : MonoBehaviour
 
     }
 
-    void CargarPuntajes(List<string[]> puntajes)
+    public void CargarPuntajes(List<string[]> puntajes)
     {
         // Destruir tabla actual si existe
         if (tablaActual != null)
@@ -46,9 +46,10 @@ public class TablaResultados : MonoBehaviour
             nuevoRenglon.GetComponent<RenglonResultado>().EstablecerDatos(lugar, nombre, puntos);
             nuevoRenglon.transform.SetParent(tablaActual.transform, false);
 
-
-            nuevoRenglon.GetComponent<Image>().color = new Color(228, 228, 228);
-
+            if (lugar % 2 == 0)
+            {
+                nuevoRenglon.GetComponent<Image>().color = new Color(228, 228, 228);
+            }
 
             nuevoRenglon.SetActive(true);
 

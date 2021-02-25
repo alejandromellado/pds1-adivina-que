@@ -256,4 +256,32 @@ public class DatabaseConnection : MonoBehaviour
 
         return resultados;
     }
+
+    public void RegistrarScore(string nombre, int materia, int num_errores, int puntos)
+    {
+        int registrosCreados = 0;
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "INSERT INTO partida (idJugador, idMateria, num_errores, puntaje) VALUES(@jugador, @materia, @errores, @puntos);";
+
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@jugador", nombre));
+                command.Parameters.Add(new SqliteParameter("@materia", materia));
+                command.Parameters.Add(new SqliteParameter("@errores", nombre));
+                command.Parameters.Add(new SqliteParameter("@puntos", nombre));
+
+                registrosCreados = command.ExecuteNonQuery();
+            }
+
+            connection.Close();
+        }
+
+        Debug.Log("Se añadieron " + registrosCreados + " registros a la tabla 'resultados'.");
+    }
 }

@@ -18,6 +18,13 @@ public class MenuRegistro : MonoBehaviour
     void Start()
     {
         database = GetComponent<DatabaseConnection>();
+
+        if (DataMantainer.Nombre != "")
+        {
+            menuRegistro.SetActive(false);
+            menuInicio.SetActive(true);
+            fondo.SetActive(true);
+        }
     }
 
     // Update is called once per frame

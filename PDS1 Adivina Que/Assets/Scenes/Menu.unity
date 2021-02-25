@@ -7436,7 +7436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &821925696
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7500,7 +7500,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 830861959}
   toggleTransition: 1
   graphic: {fileID: 1041651256}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 1649466679}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7534,9 +7534,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 821925695}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d60b3e03c6893a0459f5cf6fac8dbc8b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eefd68795d6c9042a9dd23838b102fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  label: {fileID: 1517778162}
 --- !u!1 &825042607
 GameObject:
   m_ObjectHideFlags: 0
@@ -8944,7 +8945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropdownMaterias: {fileID: 309668684}
   dropdownTemas: {fileID: 242340081}
-  scrollView: {fileID: 0}
+  scrollView: {fileID: 1879307097}
   viewPort: {fileID: 919901384}
   contentTemplate: {fileID: 1649466675}
   toggleTemplate: {fileID: 821925695}
@@ -14655,6 +14656,7 @@ GameObject:
   - component: {fileID: 1649466676}
   - component: {fileID: 1649466677}
   - component: {fileID: 1649466678}
+  - component: {fileID: 1649466679}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -14721,6 +14723,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &1649466679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649466675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 0
 --- !u!1 &1664518166
 GameObject:
   m_ObjectHideFlags: 0

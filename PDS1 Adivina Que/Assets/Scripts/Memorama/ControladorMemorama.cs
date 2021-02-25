@@ -14,6 +14,9 @@ public class ControladorMemorama : MonoBehaviour
 
     private int paresEncontrados;
     private int paresTotales;
+    [SerializeField] GameObject interfazResultados;
+    [SerializeField] TablaResultados tablaResultados;
+    [SerializeField] TextMeshProUGUI nombreUsuario;
 
     public bool puedeEscoger
     {
@@ -151,6 +154,10 @@ public class ControladorMemorama : MonoBehaviour
             if (paresEncontrados == paresTotales)
             {
                 print ("ganaste");
+                interfazResultados.SetActive(true);
+                var resultados = database.ObtenerPuntajes(DataMantainer.IdMateria);
+                tablaResultados.CargarPuntajes(resultados);
+                nombreUsuario.text = "Hola "+DataMantainer.Nombre;
             }
         }
         else

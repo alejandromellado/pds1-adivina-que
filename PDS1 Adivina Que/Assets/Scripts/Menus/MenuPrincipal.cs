@@ -11,7 +11,7 @@ public class MenuPrincipal : MonoBehaviour
 
     void Start()
     {
-        
+         
     }
 
     public void CargarJuego()

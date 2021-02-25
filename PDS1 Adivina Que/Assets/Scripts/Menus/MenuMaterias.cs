@@ -38,6 +38,11 @@ public class MenuMaterias : MonoBehaviour
         DataMantainer.IdMateria = idMateria;
     }
 
+    public void SeleccionarTema(int idTema)
+    {
+        DataMantainer.IdTema = idTema;
+    }
+
     public void SeleccionarDificultad()
     {
         var selectedToggle = toggleGroup.ActiveToggles().FirstOrDefault();

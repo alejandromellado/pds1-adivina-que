@@ -320,4 +320,38 @@ public class DatabaseConnection : MonoBehaviour
         }
     }
 
+    public List<string> ObtenerCartas()
+    {
+        List<string> cartas = new List<string>();
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM carta;";
+
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        // Agregar los nombres de los temas a la lista
+                        cartas.Add(reader["imagen"].ToString());
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+        }
+
+        return cartas;
+    }
+
 }

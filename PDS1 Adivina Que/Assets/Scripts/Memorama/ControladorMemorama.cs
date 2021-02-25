@@ -147,7 +147,11 @@ public class ControladorMemorama : MonoBehaviour
         {
             _score+=100;
             Debug.Log("Score: " + _score);
-            
+            paresEncontrados += 1;
+            if (paresEncontrados == paresTotales)
+            {
+                print ("ganaste");
+            }
         }
         else
         {

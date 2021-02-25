@@ -155,7 +155,8 @@ public class ControladorMemorama : MonoBehaviour
             if (paresEncontrados == paresTotales)
             {
                 print ("ganaste");
-                database.RegistrarScore(DataMantainer.Nombre, DataMantainer.IdMateria, errores, _score);
+                var idJugador = database.ObtenerJugador(DataMantainer.Nombre);
+                database.RegistrarScore(idJugador, DataMantainer.IdMateria, errores, _score);
                 interfazResultados.SetActive(true);
                 var resultados = database.ObtenerPuntajes(DataMantainer.IdMateria);
                 tablaResultados.CargarPuntajes(resultados);

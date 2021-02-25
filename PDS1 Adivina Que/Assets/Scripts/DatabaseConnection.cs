@@ -4,6 +4,7 @@ using UnityEngine;
 
 using Mono.Data.Sqlite;
 using System.Data;
+using System;
 
 public class DatabaseConnection : MonoBehaviour
 {
@@ -257,7 +258,7 @@ public class DatabaseConnection : MonoBehaviour
         return resultados;
     }
 
-    public void RegistrarScore(string nombre, int materia, int num_errores, int puntos)
+    public void RegistrarScore(int id, int materia, int num_errores, int puntos)
     {
         int registrosCreados = 0;
 
@@ -271,7 +272,7 @@ public class DatabaseConnection : MonoBehaviour
 
                 // Especificar el comando como una consulta y añadir el parametro 'nombre'
                 command.CommandType = CommandType.Text;
-                command.Parameters.Add(new SqliteParameter("@jugador", nombre.ToString()));
+                command.Parameters.Add(new SqliteParameter("@jugador", id.ToString()));
                 command.Parameters.Add(new SqliteParameter("@materia", materia.ToString()));
                 command.Parameters.Add(new SqliteParameter("@errores", num_errores.ToString()));
                 command.Parameters.Add(new SqliteParameter("@puntos", puntos.ToString()));
@@ -284,4 +285,39 @@ public class DatabaseConnection : MonoBehaviour
 
         Debug.Log("Se añadieron " + registrosCreados + " registros a la tabla 'resultados'.");
     }
+
+    public int ObtenerJugador(string nombre)
+    {
+        int idJugador = 0;
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT idJugador FROM materia WHERE(nombre = @nombre));";
+
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@nombre", nombre));
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        idJugador =  Int32.Parse(reader["idJugador"].ToString());
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+
+            return idJugador;
+        }
+    }
+
 }

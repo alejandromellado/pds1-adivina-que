@@ -14,6 +14,7 @@ public class ControladorMemorama : MonoBehaviour
 
     private int paresEncontrados;
     private int paresTotales;
+    private int errores = 0;
     [SerializeField] GameObject interfazResultados;
     [SerializeField] TablaResultados tablaResultados;
     [SerializeField] TextMeshProUGUI nombreUsuario;
@@ -154,10 +155,14 @@ public class ControladorMemorama : MonoBehaviour
             if (paresEncontrados == paresTotales)
             {
                 print ("ganaste");
+                database.RegistrarScore(DataMantainer.Nombre, DataMantainer.IdMateria, errores, _score);
                 interfazResultados.SetActive(true);
                 var resultados = database.ObtenerPuntajes(DataMantainer.IdMateria);
                 tablaResultados.CargarPuntajes(resultados);
                 nombreUsuario.text = "Hola "+DataMantainer.Nombre;
+
+                
+
             }
         }
         else
@@ -166,6 +171,7 @@ public class ControladorMemorama : MonoBehaviour
             _primerSeleccion.Esconder();
             _segundaSeleccion.Esconder();
             _score -= 50;
+            errores++;
         }
 
         _primerSeleccion = null;

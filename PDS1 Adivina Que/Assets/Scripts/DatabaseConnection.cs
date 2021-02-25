@@ -271,10 +271,10 @@ public class DatabaseConnection : MonoBehaviour
 
                 // Especificar el comando como una consulta y añadir el parametro 'nombre'
                 command.CommandType = CommandType.Text;
-                command.Parameters.Add(new SqliteParameter("@jugador", nombre));
-                command.Parameters.Add(new SqliteParameter("@materia", materia));
-                command.Parameters.Add(new SqliteParameter("@errores", nombre));
-                command.Parameters.Add(new SqliteParameter("@puntos", nombre));
+                command.Parameters.Add(new SqliteParameter("@jugador", nombre.ToString()));
+                command.Parameters.Add(new SqliteParameter("@materia", materia.ToString()));
+                command.Parameters.Add(new SqliteParameter("@errores", num_errores.ToString()));
+                command.Parameters.Add(new SqliteParameter("@puntos", puntos.ToString()));
 
                 registrosCreados = command.ExecuteNonQuery();
             }

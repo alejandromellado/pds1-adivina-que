@@ -217,10 +217,19 @@ public class ControladorMemorama : MonoBehaviour
         paresTotales = (filas * columnas) / 2;
 
         database = GetComponent<DatabaseConnection>();
+        List<string> cartas;
 
-        List<string> cartas = SeleccionAleatoria(paresTotales, database.ObtenerCartas(DataMantainer.IdTema));
-        imagenes = EncontrarImagenes(cartas, idMateria);
-
+        if (DataMantainer.Nombre == "Mixto" || DataMantainer.Materia == "Mixto Complejo")
+        {
+            cartas = SeleccionAleatoria(paresTotales, database.ObtenerCartas());
+            imagenes = EncontrarImagenes(cartas);
+        }
+        else
+        {
+            cartas = SeleccionAleatoria(paresTotales, database.ObtenerCartas(DataMantainer.IdTema));
+            imagenes = EncontrarImagenes(cartas, idMateria);
+        }
+        
     }
 
     Sprite[] EncontrarImagenes(List<string> cartas, int id)
@@ -234,6 +243,24 @@ public class ControladorMemorama : MonoBehaviour
             Debug.Log(string.Format("/Cartas/{0}/{1}_x", id, carta));
             imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}p", id, carta)));
             imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}r", id, carta)));
+        }
+
+        return imagenes.ToArray();
+    }
+
+    Sprite[] EncontrarImagenes(List<string> cartas)
+    {
+        var imagenes = new List<Sprite>();
+
+        Debug.Log("Archivos a cargar:");
+
+        for (int i = 1; i < 6; i++)
+        {
+            foreach (var carta in cartas)
+            {
+                imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}p", i, carta)));
+                imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}r", i, carta)));
+            }
         }
 
         return imagenes.ToArray();

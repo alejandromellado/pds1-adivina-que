@@ -15,7 +15,7 @@ public class DatabaseConnection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -341,7 +341,7 @@ public class DatabaseConnection : MonoBehaviour
                 {
                     while (reader.Read())
                     {
-                        idJugador =  Int32.Parse(reader["idJugador"].ToString());
+                        idJugador = Int32.Parse(reader["idJugador"].ToString());
                     }
 
                     reader.Close();
@@ -352,6 +352,8 @@ public class DatabaseConnection : MonoBehaviour
 
             return idJugador;
         }
+
+
     }
 
     public List<string> ObtenerCartas()
@@ -415,4 +417,39 @@ public class DatabaseConnection : MonoBehaviour
         }
         return datos;
     }
+
+    public string ObtenerDato(int idMateria)
+    {
+        string dato = "";
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT dato FROM datos WHERE (idMateria = @idMateria) ORDER BY RANDOM() LIMIT 1;";
+
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@idMateria", idMateria));
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        dato = (reader["dato"].ToString());
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+
+            return dato;
+        }
+    }
+
 }

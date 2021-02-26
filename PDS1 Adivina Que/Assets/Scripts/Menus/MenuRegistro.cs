@@ -11,7 +11,8 @@ public class MenuRegistro : MonoBehaviour
     // Referencias a elementos en la jerarquia
     public TMP_InputField inputField;
     public GameObject menuRegistro;
-    public GameObject menuInicio;
+    public GameObject menuDatos;
+    public GameObject menuPrincipal;
     public GameObject fondo;
 
     // Start is called before the first frame update
@@ -21,9 +22,10 @@ public class MenuRegistro : MonoBehaviour
 
         if (DataMantainer.Nombre != "")
         {
+            Debug.Log("This was true");
             menuRegistro.SetActive(false);
-            menuInicio.SetActive(true);
-            fondo.SetActive(true);
+            menuDatos.SetActive(true);
+            fondo.SetActive(false);
         }
     }
 
@@ -41,7 +43,7 @@ public class MenuRegistro : MonoBehaviour
         {
             database.RegistrarUsuario(nombre);
             menuRegistro.SetActive(false);
-            menuInicio.SetActive(true);
+            menuPrincipal.SetActive(true);
             fondo.SetActive(true);
             DataMantainer.Nombre = nombre;
         }

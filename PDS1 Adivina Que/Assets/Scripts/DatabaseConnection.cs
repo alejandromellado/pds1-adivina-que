@@ -38,7 +38,7 @@ public class DatabaseConnection : MonoBehaviour
             // Crear consulta para obtener tabla de materias
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "SELECT * FROM materia;";
+                command.CommandText = "SELECT * FROM materia LIMIT 5;";
 
                 // Ejecutar la consulta crea un objeto IDataReader que puede iterar sobre cada registro en la tabla que resulta de la consulta
                 using (IDataReader reader = command.ExecuteReader())

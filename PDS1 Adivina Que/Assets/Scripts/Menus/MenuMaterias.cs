@@ -27,7 +27,7 @@ public class MenuMaterias : MonoBehaviour
         if (selectedToggle == mixto)
         {
             DataMantainer.Materia = "Mixto";
-            DataMantainer.IdMateria = 7;
+            DataMantainer.IdMateria = 6;
 
             menuDificultad.SetActive(true);
         }

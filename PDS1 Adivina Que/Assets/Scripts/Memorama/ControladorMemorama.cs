@@ -219,7 +219,7 @@ public class ControladorMemorama : MonoBehaviour
         database = GetComponent<DatabaseConnection>();
         List<string> cartas;
 
-        if (DataMantainer.Nombre == "Mixto" || DataMantainer.Materia == "Mixto Complejo")
+        if (DataMantainer.Materia == "Mixto" || DataMantainer.Materia == "Mixto Complejo")
         {
             cartas = SeleccionAleatoria(paresTotales, database.ObtenerCartas());
             imagenes = EncontrarImagenes(cartas);

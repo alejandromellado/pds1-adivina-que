@@ -12,7 +12,7 @@ public class DatoInteresante : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (DataMantainer.IdMateria < 5)
+        if (DataMantainer.IdMateria <= 5)
         {
             labelDato.text = GetComponent<DatabaseConnection>().ObtenerDato(DataMantainer.IdMateria);
         }

@@ -222,6 +222,40 @@ public class DatabaseConnection : MonoBehaviour
         }
     }
 
+    public int ObtenerIdMateria(string imagen)
+    {
+        int idMateria = 0;
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT t.idMateria FROM carta c INNER JOIN tema t WHERE (c.idTema = t.idTema AND c.imagen = @imagen);";
+
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@imagen", imagen));
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        idMateria = Int32.Parse(reader["idMateria"].ToString());
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+
+            return idMateria;
+        }
+    }
+
     public List<string[]> ObtenerPuntajes(int idMateria)
     {
         var resultados = new List<string[]>();

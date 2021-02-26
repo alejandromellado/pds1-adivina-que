@@ -8,13 +8,45 @@ public class MenuMaterias : MonoBehaviour
 {
     string materia;
 
-    [SerializeField] ToggleGroup toggleGroup;
+    [SerializeField] ToggleGroup grupoDificultad;
     [SerializeField] Toggle facil;
     [SerializeField] Toggle medio;
     [SerializeField] Toggle dificil;
 
-    public void SeleccionarMateria(int idMateria)
+    [SerializeField] ToggleGroup grupoNiveles;
+    [SerializeField] Toggle mixto;
+    [SerializeField] Toggle complejo;
 
+    [SerializeField] GameObject menuDificultad;
+    [SerializeField] MenuPrincipal menuPrincipal;
+
+    public void CargarNivelEspecial()
+    {
+        var selectedToggle = grupoNiveles.ActiveToggles().FirstOrDefault();
+
+        if (selectedToggle == mixto)
+        {
+            DataMantainer.Materia = "Mixto Complejo";
+            DataMantainer.IdMateria = 7;
+
+            menuDificultad.SetActive(true);
+        }
+        else if (selectedToggle == complejo)
+        {
+            DataMantainer.Dificultad = (int)Random.Range(1, 4);
+            DataMantainer.Materia = "Mixto Complejo";
+            DataMantainer.IdMateria = 7;
+
+            menuPrincipal.CargarJuego();
+        }
+
+        Debug.Log("Materia" + DataMantainer.Materia);
+        Debug.Log("Dificultad: " + DataMantainer.Dificultad);
+        Debug.Log("idMateria " + DataMantainer.IdMateria);
+    }
+
+
+    public void SeleccionarMateria(int idMateria)
     {
         switch (idMateria)
         {
@@ -45,7 +77,7 @@ public class MenuMaterias : MonoBehaviour
 
     public void SeleccionarDificultad()
     {
-        var selectedToggle = toggleGroup.ActiveToggles().FirstOrDefault();
+        var selectedToggle = grupoDificultad.ActiveToggles().FirstOrDefault();
 
         if (selectedToggle == facil)
         {

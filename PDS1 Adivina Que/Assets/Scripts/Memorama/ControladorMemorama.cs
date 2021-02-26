@@ -254,13 +254,14 @@ public class ControladorMemorama : MonoBehaviour
 
         Debug.Log("Archivos a cargar:");
 
-        for (int i = 1; i < 6; i++)
+
+        foreach (var carta in cartas)
         {
-            foreach (var carta in cartas)
-            {
-                imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}p", i, carta)));
-                imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}r", i, carta)));
-            }
+            int i = database.ObtenerIdMateria(carta);
+
+            Debug.Log(string.Format("Cartas/{0}/{1}p", i, carta));
+            imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}p", i, carta)));
+            imagenes.Add(Resources.Load<Sprite>(string.Format("Cartas/{0}/{1}r", i, carta)));
         }
 
         return imagenes.ToArray();

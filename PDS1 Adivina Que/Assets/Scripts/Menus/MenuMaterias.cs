@@ -33,7 +33,7 @@ public class MenuMaterias : MonoBehaviour
         }
         else if (selectedToggle == complejo)
         {
-            DataMantainer.Dificultad = (int)Random.Range(1, 4);
+            DataMantainer.Dificultad = 3;
             DataMantainer.Materia = "Mixto Complejo";
             DataMantainer.IdMateria = 7;
 

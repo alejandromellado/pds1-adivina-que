@@ -160,7 +160,7 @@ public class ControladorMemorama : MonoBehaviour
                 interfazResultados.SetActive(true);
                 var resultados = database.ObtenerPuntajes(DataMantainer.IdMateria);
                 tablaResultados.CargarPuntajes(resultados);
-                nombreUsuario.text = "Hola "+DataMantainer.Nombre;
+                nombreUsuario.text = "Felicidades "+DataMantainer.Nombre + "!";
 
                 
 

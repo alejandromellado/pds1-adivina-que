@@ -6895,7 +6895,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 785284002}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1688311147}
+        m_MethodName: CargarNivelEspecial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &785284002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9445,7 +9456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &954422894
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9508,7 +9519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &989670372
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15583,10 +15594,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7582b951111ae74fbbebae20b863e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggleGroup: {fileID: 992750673}
+  grupoDificultad: {fileID: 992750673}
   facil: {fileID: 618382002}
   medio: {fileID: 563402394}
   dificil: {fileID: 221550086}
+  grupoNiveles: {fileID: 56891107}
+  mixto: {fileID: 156259395}
+  complejo: {fileID: 876855574}
+  menuDificultad: {fileID: 33881352}
+  menuPrincipal: {fileID: 633305874}
 --- !u!1 &1695820268
 GameObject:
   m_ObjectHideFlags: 0

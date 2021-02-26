@@ -9,7 +9,7 @@ using System;
 public class DatabaseConnection : MonoBehaviour
 {
     // Variables
-    private string dbName = "URI=file:AdivinaQue.db";   // almacena la direccion de la base de datos en el proyecto (raiz del proyecto)
+    private string dbName = "URI=file:" + Application.streamingAssetsPath + "/AdivinaQue.db";   // almacena la direccion de la base de datos en el proyecto (raiz del proyecto)
 
 
     // Start is called before the first frame update

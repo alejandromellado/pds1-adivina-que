@@ -354,4 +354,31 @@ public class DatabaseConnection : MonoBehaviour
         return cartas;
     }
 
+    public List<string> ObtenerDatos(int idMateria)
+    {
+        List<string> datos = new List<string>();
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT dato FROM datos WHERE (idMateria = @idMateria);";
+
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@idMateria", idMateria));
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        datos.Add(reader["dato"].ToString());
+                    }
+                    reader.Close();
+                }
+            }
+            connection.Close();
+        }
+        return datos;
+    }
 }

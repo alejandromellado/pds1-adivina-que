@@ -24,7 +24,6 @@ public class MenuRegistro : MonoBehaviour
 
         if (DataMantainer.Nombre != "")
         {
-            Debug.Log("This was true");
             menuRegistro.SetActive(false);
             menuDatos.SetActive(true);
             fondo.SetActive(false);

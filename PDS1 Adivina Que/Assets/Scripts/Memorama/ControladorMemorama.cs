@@ -38,6 +38,7 @@ public class ControladorMemorama : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreLabel;
     [SerializeField] TextMeshProUGUI materiaLabel;
     [SerializeField] int idMateria;
+    [SerializeField] GameObject grupoCartas;
 
 
     // Start is called before the first frame update
@@ -121,6 +122,7 @@ public class ControladorMemorama : MonoBehaviour
 
                 int id = numeros[indice];
                 nuevaCarta.EstablecerCarta(id, imagenes[id]);
+                nuevaCarta.transform.SetParent(grupoCartas.transform);
 
                 // Calcular y aplicar la posicion de la nueva carta en relacion a la original
                 float posX = (offsetX * i) + posicionInicial.x;

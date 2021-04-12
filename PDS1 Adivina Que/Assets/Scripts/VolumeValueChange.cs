@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class VolumeValueChange : MonoBehaviour
 {
@@ -13,16 +14,10 @@ public class VolumeValueChange : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+        DataMantainer.Volumen = musicVolume;
+
         // Assign Audio Source component to control it
         audioSrc = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        // Setting volume option of Audio Source to be equal to musicVolume
         audioSrc.volume = musicVolume;
     }
 
@@ -32,5 +27,9 @@ public class VolumeValueChange : MonoBehaviour
     public void SetVolume(float vol)
     {
         musicVolume = vol;
+        DataMantainer.Volumen = musicVolume;
+
+        // Setting volume option of Audio Source to be equal to musicVolume
+        audioSrc.volume = musicVolume;
     }
 }

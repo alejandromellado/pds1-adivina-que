@@ -79,11 +79,11 @@ public class MenuMaterias : MonoBehaviour
     {
         var selectedToggle = grupoDificultad.ActiveToggles().FirstOrDefault();
 
-        if (selectedToggle == facil)
+        if (facil.isOn)
         {
             DataMantainer.Dificultad = 1;
         }
-        else if (selectedToggle == medio)
+        else if (medio.isOn)
         {
             DataMantainer.Dificultad = 2;
         }

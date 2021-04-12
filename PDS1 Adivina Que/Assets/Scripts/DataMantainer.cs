@@ -9,6 +9,7 @@ public static class DataMantainer
     private static int dificultad = 1;
     private static int idMateria = 1;
     private static int idTema = 1;
+    private static float volumen = 0f;
 
     public static string Materia
     {
@@ -38,5 +39,11 @@ public static class DataMantainer
     {
         get { return idTema; }
         set { idTema = value; }
+    }
+
+    public static float Volumen
+    {
+        get { return volumen; }
+        set { volumen = value; }
     }
 }

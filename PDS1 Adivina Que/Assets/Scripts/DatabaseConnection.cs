@@ -11,19 +11,6 @@ public class DatabaseConnection : MonoBehaviour
     // Variables
     private string dbName = "URI=file:" + Application.streamingAssetsPath + "/AdivinaQue.db";   // almacena la direccion de la base de datos en el proyecto (raiz del proyecto)
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /* Establece conexion a la base de datos para obtener la tabla de materias.
      * Retorna una lista con los nombres de todas las materias registradas. */
     public List<string> ObtenerMaterias()
@@ -450,6 +437,41 @@ public class DatabaseConnection : MonoBehaviour
 
             return dato;
         }
+    }
+
+    public List<string> ObtenerCarta(string nombre)
+    {
+        List<string> carta = new List<string>();
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = string.Format("SELECT * FROM carta WHERE (titulo = '{0}');", nombre);
+
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        // Agregar los nombres de los temas a la lista
+                        carta.Add(reader["imagen"].ToString());
+                        carta.Add(reader["pista"].ToString());
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+        }
+
+        return carta;
     }
 
 }

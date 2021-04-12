@@ -15,6 +15,7 @@ public class MenuRegistro : MonoBehaviour
     public GameObject menuPrincipal;
     public GameObject fondo;
     public GameObject menuOpciones;
+    public GameObject mensajeAlerta;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class MenuRegistro : MonoBehaviour
             fondo.SetActive(false);
             
         }
+
     }
 
     // Update is called once per frame
@@ -51,7 +53,10 @@ public class MenuRegistro : MonoBehaviour
             DataMantainer.Nombre = nombre;
         }
 
-        else { Debug.LogWarning("El nombre introducido no es valido."); }
+        else {
+            Debug.LogWarning("El nombre introducido no es valido.");    
+            mensajeAlerta.SetActive(true);
+        }
         
     }
 

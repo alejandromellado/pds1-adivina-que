@@ -1,17 +1,20 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 using TMPro;
 
-public class ControladorMemorama : MonoBehaviour
+public class ControladorDosJugadores : MonoBehaviour
 {
+    public GameObject MenuGanador;
+    public GameObject Empate;
     private int _score = 0;
-    private CartaMemorama _primerSeleccion;
-    private CartaMemorama _segundaSeleccion;
+    private CartaMemoramaDos _primerSeleccion;
+    private CartaMemoramaDos _segundaSeleccion;
     Dictionary<int, int> pares;
-
+    public GameObject GanadorUno;
+    public GameObject GanadorDos;
     private int paresEncontrados;
     private int paresTotales;
     private int errores = 0;
@@ -35,9 +38,10 @@ public class ControladorMemorama : MonoBehaviour
     public int columnas;
     public float offsetX = 2.5f;
     public float offsetY = -2.5f;
+    public int jugador = 1;
 
     // Referencias
-    [SerializeField] CartaMemorama cartaOriginal;
+    [SerializeField] CartaMemoramaDos cartaOriginal;
     [SerializeField] TextMeshProUGUI scoreLabel;
     [SerializeField] TextMeshProUGUI materiaLabel;
     [SerializeField] int idMateria;
@@ -109,15 +113,17 @@ public class ControladorMemorama : MonoBehaviour
         {
             for (int j = 0; j < filas; j++)
             {
-                CartaMemorama nuevaCarta;
+                CartaMemoramaDos nuevaCarta;
 
                 if (i == j && j == 0)
                 {
                     nuevaCarta = cartaOriginal;
+                    
                 }
                 else
                 {
                     nuevaCarta = Instantiate(cartaOriginal);
+                    nuevaCarta.gameObject.tag = "clon";
                 }
 
                 // Calcular el indice de la carta
@@ -136,8 +142,25 @@ public class ControladorMemorama : MonoBehaviour
         }
     }
 
+    public void destruirclon()
+    {
+        var clones = GameObject.FindGameObjectsWithTag("clon");
+        foreach (var clon in clones)
+        {
+            Destroy(clon);
+        }
 
-    public void CartaSeleccionada(CartaMemorama carta)
+        StartCoroutine(mostrarCartaOriginal());
+    }
+
+    IEnumerator mostrarCartaOriginal()
+    {
+        cartaOriginal.reversoDeCarta.SetActive(false);
+        yield return new WaitForSeconds(4);
+        cartaOriginal.reversoDeCarta.SetActive(true);
+    }
+
+    public void CartaSeleccionada(CartaMemoramaDos carta)
     {
         if (_primerSeleccion == null)
         {
@@ -171,27 +194,90 @@ public class ControladorMemorama : MonoBehaviour
         Incorrecto.SetActive(false);
     }
 
+    public void mostrarGanador()
+    {
+        GanadorUno.SetActive(true);
+        
+        
+    }
+
+    public void mostrarGanadorDos()
+    {
+        GanadorDos.SetActive(true);
+        
+        
+    }
+
+    public void mostrarEmpate()
+    {
+        Empate.SetActive(true);
+    }
+
     private IEnumerator RevisarPar()
     {
+        int totalscore1 = 0;
+        int totalscore2 = 0;
         if (pares[_primerSeleccion.id] == _segundaSeleccion.id)
         {
-            _score+=100;
+            _score += 100;
+            
             StartCoroutine(mostrarCorrecto());
             Debug.Log("Score: " + _score);
             paresEncontrados += 1;
             if (paresEncontrados == paresTotales)
             {
-                print ("ganaste");
+                print("ganaste");
                 var idJugador = database.ObtenerJugador(DataMantainer.Nombre);
-                database.RegistrarScore(idJugador, DataMantainer.IdMateria, errores, _score);
-                interfazResultados.SetActive(true);
-                var resultados = database.ObtenerPuntajes(DataMantainer.IdMateria);
-                tablaResultados.CargarPuntajes(resultados);
-                nombreUsuario.text = "Felicidades " + DataMantainer.Nombre + "!";
+                //database.RegistrarScore(idJugador, DataMantainer.IdMateria, errores, _score);
+                
+                jugador ++;
+                Debug.Log(jugador);
+                //interfazResultados.SetActive(true);
+                //var resultados = database.ObtenerPuntajes(DataMantainer.IdMateria);
+                //tablaResultados.CargarPuntajes(resultados);
+                totalscore1 = _score;
+                
+                if (jugador==2)
+                {
 
+                    StartCoroutine(mostrarTurnodos());
+                    _score = 0;
+                    destruirclon();
+                    ConfigurarPartida();
+                    CargarImagenes(filas, columnas);
+                    CrearCartas();
+                    paresEncontrados = 0;
+                    totalscore2 = _score;
+                    Debug.Log(jugador);
+                    
+
+                    
+
+
+                }
+                if (jugador == 3)
+                {
+                    MenuGanador.SetActive(true);
+                    if (totalscore1 > totalscore2)
+                    {
+                        mostrarGanador();
+                        
+                    }
+                    else if (totalscore2>totalscore1)
+                    {
+                        mostrarGanadorDos();
+                    }
+                    {
+                        mostrarEmpate();
+
+                    }
+                }
+                Debug.Log(jugador);
 
 
             }
+
+            
         }
         else
         {
@@ -257,7 +343,7 @@ public class ControladorMemorama : MonoBehaviour
             cartas = SeleccionAleatoria(paresTotales, database.ObtenerCartas(DataMantainer.IdTema));
             imagenes = EncontrarImagenes(cartas, idMateria);
         }
-        
+
     }
 
     Sprite[] EncontrarImagenes(List<string> cartas, int id)
@@ -310,4 +396,3 @@ public class ControladorMemorama : MonoBehaviour
         return nuevaLista;
     }
 }
-

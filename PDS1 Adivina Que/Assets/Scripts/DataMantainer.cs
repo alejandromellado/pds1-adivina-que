@@ -10,11 +10,18 @@ public static class DataMantainer
     private static int idMateria = 1;
     private static int idTema = 1;
     private static float volumen = 0f;
+    private static bool dosjugadores = true;
 
     public static string Materia
     {
         get { return materia; }
         set { materia = value; }
+    }
+
+    public static bool Dosjugadores
+    {
+        get { return dosjugadores; }
+        set { dosjugadores = value; }
     }
 
     public static string Nombre

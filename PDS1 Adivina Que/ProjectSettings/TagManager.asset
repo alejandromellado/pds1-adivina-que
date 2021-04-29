@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Carta
   - Slider
+  - clon
   layers:
   - Default
   - TransparentFX

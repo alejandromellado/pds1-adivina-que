@@ -7,6 +7,7 @@ using TMPro;
 public class DatoInteresante : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI labelDato;
+    [SerializeField] TextMeshProUGUI labelTema;
 
 
     // Start is called before the first frame update
@@ -14,12 +15,24 @@ public class DatoInteresante : MonoBehaviour
     {
         if (DataMantainer.IdMateria <= 5)
         {
-            labelDato.text = GetComponent<DatabaseConnection>().ObtenerDato(DataMantainer.IdMateria);
+            var info = GetComponent<DatabaseConnection>().ObtenerDato(DataMantainer.IdMateria).Split('\n');
+
+            var tema = info[0].Split(':')[1];
+            var dato = info[1];
+
+            labelTema.text = tema;
+            labelDato.text = dato;
         }
         else
         {
-            int r = (int)Random.Range(1, 6);
-            labelDato.text = GetComponent<DatabaseConnection>().ObtenerDato(r);
+            int random = (int)Random.Range(1, 6);
+            var info = GetComponent<DatabaseConnection>().ObtenerDato(random).Split('\n');
+
+            var tema = info[0].Split(':')[1];
+            var dato = info[1];
+
+            labelTema.text = tema;
+            labelDato.text = dato;
         }
     }
 

@@ -20,7 +20,7 @@ public class ToggleScrollView : MonoBehaviour
     void Start()
     {
         toggle = GetComponent<Toggle>();
-        database = new DatabaseConnection();
+        
     }
 
     // Update is called once per frame
@@ -42,9 +42,9 @@ public class ToggleScrollView : MonoBehaviour
     public void CartaSeleccionada()
     {
         string carta = label.text;
-        Debug.Log("Seleccionada: " + carta);
         title.text = carta;
 
+        database = GetComponent<DatabaseConnection>();
         var info = database.ObtenerCarta(carta);
         var file = info[0];
         var folder = database.ObtenerIdMateria(file);

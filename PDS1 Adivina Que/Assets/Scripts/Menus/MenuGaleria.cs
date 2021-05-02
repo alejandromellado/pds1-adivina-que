@@ -99,8 +99,6 @@ public class MenuGaleria : MonoBehaviour
         // Crear un toggle para cada carta y asignarle el texto adecuado
         foreach (var carta in cartas)
         {
-            Debug.Log(carta);
-
             GameObject nuevoBoton = Instantiate(toggleTemplate);
             nuevoBoton.transform.SetParent(currentContent.transform, false);
             nuevoBoton.GetComponent<ToggleScrollView>().SetText(carta);

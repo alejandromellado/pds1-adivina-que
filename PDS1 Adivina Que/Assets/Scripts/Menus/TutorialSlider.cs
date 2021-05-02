@@ -29,6 +29,12 @@ public class TutorialSlider : MonoBehaviour
         image.sprite = images[number];
     }
 
+    public void InitialSlide()
+    {
+        currentSlide = 0;
+        SetSlide(currentSlide);
+    }
+
     public void NextSlide()
     {
         if (currentSlide < totalSlides - 1)

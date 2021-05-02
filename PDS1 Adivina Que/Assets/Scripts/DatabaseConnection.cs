@@ -243,6 +243,74 @@ public class DatabaseConnection : MonoBehaviour
         }
     }
 
+    public int ObtenerIdMateriaPorNombre(string nombre)
+    {
+        int idMateria = 0;
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT idMateria FROM materia WHERE (nombre = @nombre);";
+
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@nombre", nombre));
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        idMateria = Int32.Parse(reader["idMateria"].ToString());
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+
+            return idMateria;
+        }
+    }
+
+    public int ObtenerIdTema(string tema)
+    {
+        int idMateria = 0;
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            // Crear consulta para obtener tabla de cartas y el id del tema usando su nombre
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT idTema FROM tema WHERE (nombre = @imagen);";
+
+                // Especificar el comando como una consulta y añadir el parametro 'nombre'
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@imagen", tema));
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        idMateria = Int32.Parse(reader["idTema"].ToString());
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+
+            return idMateria;
+        }
+    }
+
     public List<string[]> ObtenerPuntajes(int idMateria)
     {
         var resultados = new List<string[]>();
@@ -279,7 +347,44 @@ public class DatabaseConnection : MonoBehaviour
         return resultados;
     }
 
-    public void RegistrarScore(int id, int materia, int num_errores, int puntos)
+    public List<string[]> ObtenerPuntajesDeTema(int idTema, int idMateria)
+    {
+        var resultados = new List<string[]>();
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT nombre, puntaje FROM jugador j INNER JOIN partida p WHERE (J.idJugador = p.idJugador AND p.idTema = @idTema AND p.idMateria = @idMateria) ORDER BY puntaje DESC;";
+
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqliteParameter("@idTema", idTema));
+                command.Parameters.Add(new SqliteParameter("@idMateria", idMateria));
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var resultado = new string[2];
+                        resultado[0] = (reader["nombre"].ToString());
+                        resultado[1] = (reader["puntaje"].ToString());
+
+                        resultados.Add(resultado);
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+        }
+
+        return resultados;
+    }
+
+    public void RegistrarScore(int id, int materia, int num_errores, int puntos, int tema)
     {
         int registrosCreados = 0;
 
@@ -289,7 +394,7 @@ public class DatabaseConnection : MonoBehaviour
 
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "INSERT INTO partida (idJugador, idMateria, num_errores, puntaje) VALUES(@jugador, @materia, @errores, @puntos);";
+                command.CommandText = "INSERT INTO partida (idJugador, idMateria, num_errores, puntaje, idTema) VALUES(@jugador, @materia, @errores, @puntos, @tema);";
 
                 // Especificar el comando como una consulta y añadir el parametro 'nombre'
                 command.CommandType = CommandType.Text;
@@ -297,6 +402,7 @@ public class DatabaseConnection : MonoBehaviour
                 command.Parameters.Add(new SqliteParameter("@materia", materia.ToString()));
                 command.Parameters.Add(new SqliteParameter("@errores", num_errores.ToString()));
                 command.Parameters.Add(new SqliteParameter("@puntos", puntos.ToString()));
+                command.Parameters.Add(new SqliteParameter("@tema", tema.ToString()));
 
                 registrosCreados = command.ExecuteNonQuery();
             }

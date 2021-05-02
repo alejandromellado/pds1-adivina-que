@@ -183,9 +183,9 @@ public class ControladorMemorama : MonoBehaviour
             {
                 print ("ganaste");
                 var idJugador = database.ObtenerJugador(DataMantainer.Nombre);
-                database.RegistrarScore(idJugador, DataMantainer.IdMateria, errores, _score);
+                database.RegistrarScore(idJugador, DataMantainer.IdMateria, errores, _score, DataMantainer.IdTema);
                 interfazResultados.SetActive(true);
-                var resultados = database.ObtenerPuntajes(DataMantainer.IdMateria);
+                var resultados = database.ObtenerPuntajesDeTema(DataMantainer.IdTema, DataMantainer.IdMateria);
                 tablaResultados.CargarPuntajes(resultados);
                 nombreUsuario.text = "Felicidades " + DataMantainer.Nombre + "!";
 

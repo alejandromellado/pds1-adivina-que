@@ -2031,17 +2031,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443bbde136ad1eb4890d41fdb1128071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagenes:
+  images:
   - {fileID: 21300000, guid: dfe5ede565bde504da2720f2070c5d71, type: 3}
   - {fileID: 21300000, guid: ea6fc1c88eecb504cb1375c4116a168c, type: 3}
   - {fileID: 21300000, guid: dce88c6d945048a43bef48f3e7e96388, type: 3}
   - {fileID: 21300000, guid: 5ae38db9c9e8a3341b08af7773349057, type: 3}
   - {fileID: 21300000, guid: b3ec7e865caafc94f82b47c7269830ef, type: 3}
-  instrucciones:
-  - Las cartas aparecen.
-  - Las cartas desaparecen.
-  - El usuario selecciono una carta.
-  - El usuario selecciona otra carta, si estas no forman un par entonces
+  instructions:
+  - "Al comenzar un juego nuevo podr\xE1s ver todas las cartas por un momento. \xA1Pon
+    atenci\xF3n!, intenta memorizar las posiciones de las cartas y identifica sus
+    pares correspondientes."
+  - Una vez transcurridos unos segundos las cartas son cubiertas y el juego comienza.
+    El objetivo es asociar las cartas con sus pares correspondientes hasta revelar
+    todas las cartas en el memorama.
+  - "Para empezar a completar el memorama debes seleccionar cartas en pares, puedes
+    seleccionar cualquiera de estas para revelarla y decidir qu\xE9 otra carta quieres
+    seleccionar."
+  - Si seleccionas una segunda carta que no forma un par con la primera se contara
+    como un error, tu puntaje bajara y las cartas vuelven a ser ocultadas para que
+    puedas intentar de nuevo.
+  - "Si aciertas en seleccionar un par de cartas correcto entonces tu puntaje aumentara
+    y estar\xE1s un paso m\xE1s cerca de resolver el memorama, \xA1Repite este proceso
+    hasta acabar las cartas y habr\xE1s terminado el memorama!"
+  label: {fileID: 1963464692}
+  image: {fileID: 1723550896}
 --- !u!1 &204941867
 GameObject:
   m_ObjectHideFlags: 0
@@ -2725,8 +2738,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 196.47, y: -2.000001}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: 178, y: 48.36}
+  m_SizeDelta: {x: 36.62, y: 36.62}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &233522722
 MonoBehaviour:
@@ -2771,7 +2784,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 233522723}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 199674279}
+        m_TargetAssemblyTypeName: TutorialSlider, Assembly-CSharp
+        m_MethodName: NextSlide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &233522723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2921,6 +2946,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 199674279}
+        m_TargetAssemblyTypeName: TutorialSlider, Assembly-CSharp
+        m_MethodName: SetSlide
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -12000,7 +12037,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000016212463, y: -161.5}
+  m_AnchoredPosition: {x: 0, y: -172}
   m_SizeDelta: {x: 150, y: 35.752182}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &913440600
@@ -21551,8 +21588,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -2}
-  m_SizeDelta: {x: 187.82, y: 187.82}
+  m_AnchoredPosition: {x: 0, y: 43}
+  m_SizeDelta: {x: 270.65, y: 170.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1723550896
 MonoBehaviour:
@@ -24776,8 +24813,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.18699074, y: 130.7}
-  m_SizeDelta: {x: 433.32, y: 44.02}
+  m_AnchoredPosition: {x: -0.18699074, y: -98}
+  m_SizeDelta: {x: 393.03, y: 81.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1963464692
 MonoBehaviour:
@@ -24826,8 +24863,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -26031,7 +26068,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.18699074, y: 170.87}
+  m_AnchoredPosition: {x: -0.18699074, y: 162}
   m_SizeDelta: {x: 297.39, y: 36.32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2071234355
@@ -26167,8 +26204,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -196.85, y: -2.0000029}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: -182.06, y: 48.36}
+  m_SizeDelta: {x: 36.62, y: 36.62}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2088994856
 MonoBehaviour:
@@ -26213,7 +26250,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2088994857}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 199674279}
+        m_TargetAssemblyTypeName: TutorialSlider, Assembly-CSharp
+        m_MethodName: PreviousSlide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2088994857
 MonoBehaviour:
   m_ObjectHideFlags: 0

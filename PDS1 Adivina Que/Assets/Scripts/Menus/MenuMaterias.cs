@@ -82,6 +82,7 @@ public class MenuMaterias : MonoBehaviour
     {
         var selectedToggle = grupoDificultad.ActiveToggles().FirstOrDefault();
         DataMantainer.Contrarreloj = false;
+        DataMantainer.Dosjugadores = false;
         if (facil.isOn)
         {
             DataMantainer.Dificultad = 1;
@@ -103,6 +104,7 @@ public class MenuMaterias : MonoBehaviour
             DataMantainer.Contrarreloj = true;
         }else if (dosjugadores.isOn)
         {
+            DataMantainer.Dosjugadores = true;
         }
 
         Debug.Log("Materia" + DataMantainer.Materia);

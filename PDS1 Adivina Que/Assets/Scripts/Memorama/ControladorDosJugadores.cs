@@ -10,6 +10,7 @@ public class ControladorDosJugadores : MonoBehaviour
     public GameObject MenuGanador;
     public GameObject Empate;
     private int _score = 0;
+    private bool ciclo_correct = true;
     private CartaMemoramaDos _primerSeleccion;
     private CartaMemoramaDos _segundaSeleccion;
     Dictionary<int, int> pares;
@@ -20,7 +21,11 @@ public class ControladorDosJugadores : MonoBehaviour
     private int errores = 0;
     public GameObject Correcto;
     public GameObject Incorrecto;
+    public GameObject Correcto2;
+    public GameObject Incorrecto2;
     public GameObject Turnodos;
+    public GameObject player1;
+    public GameObject player2;
     [SerializeField] GameObject interfazResultados;
     [SerializeField] TablaResultados tablaResultados;
     [SerializeField] TextMeshProUGUI nombreUsuario;
@@ -51,9 +56,11 @@ public class ControladorDosJugadores : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player2.SetActive(false);
         ConfigurarPartida();
         CargarImagenes(filas, columnas);
         CrearCartas();
+        player1.SetActive(true);
     }
 
     void ConfigurarPartida()
@@ -150,7 +157,7 @@ public class ControladorDosJugadores : MonoBehaviour
             Destroy(clon);
         }
 
-        StartCoroutine(mostrarCartaOriginal());
+        //StartCoroutine(mostrarCartaOriginal());
     }
 
     IEnumerator mostrarCartaOriginal()
@@ -173,11 +180,22 @@ public class ControladorDosJugadores : MonoBehaviour
         }
     }
 
-    IEnumerator mostrarCorrecto()
+    IEnumerator mostrarCorrecto()//Se muestra el letrero de correcto al acertar un par
     {
-        Correcto.SetActive(true);
-        yield return new WaitForSeconds(1);
-        Correcto.SetActive(false);
+        if (ciclo_correct)
+        {
+            Correcto.SetActive(true);
+            yield return new WaitForSeconds(1);
+            Correcto.SetActive(false);
+            ciclo_correct = false;//con esto se alternan entre letreros
+        }
+        else
+        {
+            Correcto2.SetActive(true);
+            yield return new WaitForSeconds(1);
+            Correcto2.SetActive(false);
+            ciclo_correct = true;
+        }
     }
 
     IEnumerator mostrarTurnodos()
@@ -187,11 +205,22 @@ public class ControladorDosJugadores : MonoBehaviour
         Turnodos.SetActive(false);
     }
 
-    IEnumerator mostrarIncorrecto()
+    IEnumerator mostrarIncorrecto()//Se muestra el letrero de incorrecto al fallar un par
     {
-        Incorrecto.SetActive(true);
-        yield return new WaitForSeconds(1);
-        Incorrecto.SetActive(false);
+        if (ciclo_correct)
+        {
+            Incorrecto.SetActive(true);
+            yield return new WaitForSeconds(1);
+            Incorrecto.SetActive(false);
+            ciclo_correct = false;
+        }
+        else
+        {
+            Incorrecto2.SetActive(true);
+            yield return new WaitForSeconds(1);
+            Incorrecto2.SetActive(false);
+            ciclo_correct = true;
+        }
     }
 
     public void mostrarGanador()
@@ -239,21 +268,19 @@ public class ControladorDosJugadores : MonoBehaviour
                 
                 if (jugador==2)
                 {
-
-                    StartCoroutine(mostrarTurnodos());
+                    player1.SetActive(false);
+                    StartCoroutine(mostrarTurnodos());                    
                     _score = 0;
                     destruirclon();
-                    ConfigurarPartida();
+                    ConfigurarPartida();                    
                     CargarImagenes(filas, columnas);
+                    yield return new WaitForSeconds(4);//Esto es para esperar al jugador 2 y no obstruir su vison de la cartas
+                    StartCoroutine(mostrarCartaOriginal());
                     CrearCartas();
                     paresEncontrados = 0;
                     totalscore2 = _score;
                     Debug.Log(jugador);
-                    
-
-                    
-
-
+                    player2.SetActive(true);
                 }
                 if (jugador == 3)
                 {
@@ -266,7 +293,7 @@ public class ControladorDosJugadores : MonoBehaviour
                     else if (totalscore2>totalscore1)
                     {
                         mostrarGanadorDos();
-                    }
+                    }else
                     {
                         mostrarEmpate();
 

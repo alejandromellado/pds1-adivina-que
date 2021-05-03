@@ -22569,7 +22569,7 @@ GameObject:
   - component: {fileID: 1470529695}
   - component: {fileID: 1470529696}
   m_Layer: 5
-  m_Name: ToggleGroupExtra
+  m_Name: OpcionesExtra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26149,6 +26149,8 @@ MonoBehaviour:
   grupoNiveles: {fileID: 56891107}
   mixto: {fileID: 156259395}
   complejo: {fileID: 876855574}
+  contrarreloj: {fileID: 1362679983}
+  dosjugadores: {fileID: 1847657892}
   menuDificultad: {fileID: 33881352}
   menuPrincipal: {fileID: 633305874}
 --- !u!1 &1688934110

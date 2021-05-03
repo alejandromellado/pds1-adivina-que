@@ -7,37 +7,54 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     public TextMeshProUGUI timeText;
+    public ControladorMemorama memorama;
 
     float timeRemaining;
     bool timerIsRunning;
+    bool juegoEnProgreso;
 
     private void Start()
     {
-        timeRemaining = DataMantainer.Tiempo;
+        timeRemaining = DataMantainer.Tiempo+5;
         timerIsRunning = DataMantainer.Contrarreloj;
+        juegoEnProgreso = true;
 
         if (!timerIsRunning)
         {
             timeText.text = " ";
         }
+        else
+        {
+            DisplayTime(DataMantainer.Tiempo);
+        }
     }
 
     void Update()
     {
-        if (timerIsRunning)
+        juegoEnProgreso = memorama.juegoEnProgreso;
+        if (juegoEnProgreso)
         {
-            if (timeRemaining > 1)
+            if (timerIsRunning)
             {
-                timeRemaining -= Time.deltaTime;
-                DisplayTime(timeRemaining);
-            }
-            else
-            {
-                Debug.Log("Time has run out!");
-                timeRemaining = 0;
-                timerIsRunning = false;
+                if (timeRemaining > DataMantainer.Tiempo)
+                {
+                    timeRemaining -= Time.deltaTime;
+                }
+                else if (timeRemaining > 1)
+                {
+                    timeRemaining -= Time.deltaTime;
+                    DisplayTime(timeRemaining);
+                }
+                else
+                {
+                    Debug.Log("Time has run out!");
+                    timeRemaining = 0;
+                    timerIsRunning = false;
+                    memorama.terminoPartida();
+                }
             }
         }
+        
     }
 
     void DisplayTime(float timeToDisplay)

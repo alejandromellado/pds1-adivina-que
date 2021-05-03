@@ -17,6 +17,9 @@ public class MenuMaterias : MonoBehaviour
     [SerializeField] Toggle mixto;
     [SerializeField] Toggle complejo;
 
+    [SerializeField] Toggle contrarreloj;
+    [SerializeField] Toggle dosjugadores;
+
     [SerializeField] GameObject menuDificultad;
     [SerializeField] MenuPrincipal menuPrincipal;
 
@@ -78,18 +81,28 @@ public class MenuMaterias : MonoBehaviour
     public void SeleccionarDificultad()
     {
         var selectedToggle = grupoDificultad.ActiveToggles().FirstOrDefault();
-
+        DataMantainer.Contrarreloj = false;
         if (facil.isOn)
         {
             DataMantainer.Dificultad = 1;
+            DataMantainer.Tiempo = 15;
         }
         else if (medio.isOn)
         {
             DataMantainer.Dificultad = 2;
+            DataMantainer.Tiempo = 30;
         }
         else
         {
             DataMantainer.Dificultad = 3;
+            DataMantainer.Tiempo = 60;
+        }
+
+        if (contrarreloj.isOn)
+        {
+            DataMantainer.Contrarreloj = true;
+        }else if (dosjugadores.isOn)
+        {
         }
 
         Debug.Log("Materia" + DataMantainer.Materia);

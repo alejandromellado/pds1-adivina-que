@@ -24,6 +24,7 @@ public class ControladorMemorama : MonoBehaviour
     [SerializeField] GameObject interfazResultados;
     [SerializeField] TablaResultados tablaResultados;
     [SerializeField] TextMeshProUGUI nombreUsuario;
+    public bool juegoEnProgreso;
 
     public bool puedeEscoger
     {
@@ -53,6 +54,7 @@ public class ControladorMemorama : MonoBehaviour
         ConfigurarPartida();
         CargarImagenes(filas, columnas);
         CrearCartas();
+        juegoEnProgreso = true;
     }
 
     void ConfigurarPartida()
@@ -214,6 +216,8 @@ public class ControladorMemorama : MonoBehaviour
                 var resultados = database.ObtenerPuntajesDeTema(DataMantainer.IdTema, DataMantainer.IdMateria);
                 tablaResultados.CargarPuntajes(resultados);
                 nombreUsuario.text = "Felicidades " + DataMantainer.Nombre + "!";
+                DataMantainer.Contrarreloj = false;
+                juegoEnProgreso = false;
             }
         }
         else
@@ -331,6 +335,17 @@ public class ControladorMemorama : MonoBehaviour
         }
 
         return nuevaLista;
+    }
+    public void terminoPartida()
+    {
+        print("Se acabo el tiempo");
+        var idJugador = database.ObtenerJugador(DataMantainer.Nombre);
+        database.RegistrarScore(idJugador, DataMantainer.IdMateria, errores, _score, DataMantainer.IdTema);
+        interfazResultados.SetActive(true);
+        var resultados = database.ObtenerPuntajesDeTema(DataMantainer.IdTema, DataMantainer.IdMateria);
+        tablaResultados.CargarPuntajes(resultados);
+        nombreUsuario.text = "Se acabo el tiempo " + DataMantainer.Nombre + "!";
+        DataMantainer.Contrarreloj = false;
     }
 }
 

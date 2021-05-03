@@ -2599,11 +2599,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   images:
-  - {fileID: 21300000, guid: dfe5ede565bde504da2720f2070c5d71, type: 3}
+  - {fileID: 21300000, guid: f6880709f1631fd4da60cea58fcb0783, type: 3}
   - {fileID: 21300000, guid: ea6fc1c88eecb504cb1375c4116a168c, type: 3}
-  - {fileID: 21300000, guid: dce88c6d945048a43bef48f3e7e96388, type: 3}
-  - {fileID: 21300000, guid: 5ae38db9c9e8a3341b08af7773349057, type: 3}
-  - {fileID: 21300000, guid: b3ec7e865caafc94f82b47c7269830ef, type: 3}
+  - {fileID: 21300000, guid: 66ffe97a1b55179438da6743753cb147, type: 3}
+  - {fileID: 21300000, guid: 2065ca79c9836fe46afea4802834f077, type: 3}
+  - {fileID: 21300000, guid: eb5a231d58ff7c74fb9ef599d71009d1, type: 3}
   instructions:
   - "Al comenzar un juego nuevo podr\xE1s ver todas las cartas por un momento. \xA1Pon
     atenci\xF3n!, intenta memorizar las posiciones de las cartas y identifica sus

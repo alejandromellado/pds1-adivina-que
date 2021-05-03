@@ -188,9 +188,6 @@ public class ControladorMemorama : MonoBehaviour
                 var resultados = database.ObtenerPuntajesDeTema(DataMantainer.IdTema, DataMantainer.IdMateria);
                 tablaResultados.CargarPuntajes(resultados);
                 nombreUsuario.text = "Felicidades " + DataMantainer.Nombre + "!";
-
-
-
             }
         }
         else

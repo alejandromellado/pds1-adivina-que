@@ -12,6 +12,9 @@ public static class DataMantainer
     private static float volumen = 0f;
     private static bool dosjugadores = true;
 
+    private static bool contrarreloj = false;
+    private static int tiempo = 0;
+
     public static string Materia
     {
         get { return materia; }
@@ -52,5 +55,17 @@ public static class DataMantainer
     {
         get { return volumen; }
         set { volumen = value; }
+    }
+
+    public static int Tiempo
+    {
+        get { return tiempo; }
+        set { tiempo = value; }
+    }
+
+    public static bool Contrarreloj
+    {
+        get { return contrarreloj; }
+        set { contrarreloj = value; }
     }
 }

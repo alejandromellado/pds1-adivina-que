@@ -8,6 +8,7 @@ using TMPro;
 public class ControladorMemorama : MonoBehaviour
 {
     private int _score = 0;
+    private bool ciclo_correct = true;
     private CartaMemorama _primerSeleccion;
     private CartaMemorama _segundaSeleccion;
     Dictionary<int, int> pares;
@@ -16,7 +17,9 @@ public class ControladorMemorama : MonoBehaviour
     private int paresTotales;
     private int errores = 0;
     public GameObject Correcto;
+    public GameObject Correcto2;
     public GameObject Incorrecto;
+    public GameObject Incorrecto2;
     public GameObject Turnodos;
     [SerializeField] GameObject interfazResultados;
     [SerializeField] TablaResultados tablaResultados;
@@ -150,11 +153,22 @@ public class ControladorMemorama : MonoBehaviour
         }
     }
 
-    IEnumerator mostrarCorrecto()
+    IEnumerator mostrarCorrecto()//Se muestra el letrero de correcto al acertar un par
     {
-        Correcto.SetActive(true);
-        yield return new WaitForSeconds(1);
-        Correcto.SetActive(false);
+        if (ciclo_correct)
+        {
+            Correcto.SetActive(true);
+            yield return new WaitForSeconds(1);
+            Correcto.SetActive(false);
+            ciclo_correct = false;//con esto se alternan entre letreros
+        }
+        else
+        {
+            Correcto2.SetActive(true);
+            yield return new WaitForSeconds(1);
+            Correcto2.SetActive(false);
+            ciclo_correct = true;
+        }
     }
 
     IEnumerator mostrarTurnodos()
@@ -164,11 +178,23 @@ public class ControladorMemorama : MonoBehaviour
         Turnodos.SetActive(false);
     }
 
-    IEnumerator mostrarIncorrecto()
+    IEnumerator mostrarIncorrecto()//Se muestra el letrero de incorrecto al fallar un par
     {
-        Incorrecto.SetActive(true);
-        yield return new WaitForSeconds(1);
-        Incorrecto.SetActive(false);
+        if (ciclo_correct)
+        {
+            Incorrecto.SetActive(true);
+            yield return new WaitForSeconds(1);
+            Incorrecto.SetActive(false);
+            ciclo_correct = false;
+        }
+        else
+        {
+            Incorrecto2.SetActive(true);
+            yield return new WaitForSeconds(1);
+            Incorrecto2.SetActive(false);
+            ciclo_correct = true;
+        }
+        
     }
 
     private IEnumerator RevisarPar()

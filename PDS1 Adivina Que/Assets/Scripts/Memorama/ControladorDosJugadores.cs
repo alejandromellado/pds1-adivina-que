@@ -408,4 +408,12 @@ public class ControladorDosJugadores : MonoBehaviour
 
         return nuevaLista;
     }
+
+    public void SetAllCollidersStatus(bool active)
+    {
+        foreach (BoxCollider2D c in grupoCartas.GetComponentsInChildren<BoxCollider2D>())
+        {
+            c.enabled = active;
+        }
+    }
 }

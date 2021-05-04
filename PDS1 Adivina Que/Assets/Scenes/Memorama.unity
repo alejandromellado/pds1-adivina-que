@@ -841,6 +841,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 455416571}
+        m_TargetAssemblyTypeName: ControladorMemorama, Assembly-CSharp
+        m_MethodName: SetAllCollidersStatus
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &315718345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1347,6 +1359,7 @@ MonoBehaviour:
   interfazResultados: {fileID: 522254630}
   tablaResultados: {fileID: 1900594211}
   nombreUsuario: {fileID: 2140757182}
+  juegoEnProgreso: 0
   filas: 2
   columnas: 3
   offsetX: 2.5
@@ -4474,6 +4487,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1946132537}
         m_TargetAssemblyTypeName: 
         m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 455416571}
+        m_TargetAssemblyTypeName: ControladorMemorama, Assembly-CSharp
+        m_MethodName: SetAllCollidersStatus
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

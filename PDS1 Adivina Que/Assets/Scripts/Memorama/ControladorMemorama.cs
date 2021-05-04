@@ -347,5 +347,14 @@ public class ControladorMemorama : MonoBehaviour
         nombreUsuario.text = "Se acabo el tiempo " + DataMantainer.Nombre + "!";
         DataMantainer.Contrarreloj = false;
     }
+
+    public void SetAllCollidersStatus(bool active)
+    {
+        foreach (BoxCollider2D c in grupoCartas.GetComponentsInChildren<BoxCollider2D>())
+        {
+            c.enabled = active;
+        }
+    }
+
 }
 

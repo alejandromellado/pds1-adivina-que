@@ -8,17 +8,21 @@ using TMPro;
 public class ControladorDosJugadores : MonoBehaviour
 {
     public GameObject MenuGanador;
-    public GameObject Empate;
+
     private int _score = 0;
     private bool ciclo_correct = true;
     private CartaMemoramaDos _primerSeleccion;
     private CartaMemoramaDos _segundaSeleccion;
     Dictionary<int, int> pares;
+    public GameObject letreroGanador;
     public GameObject GanadorUno;
     public GameObject GanadorDos;
+    public GameObject Empate;
     private int paresEncontrados;
     private int paresTotales;
     private int errores = 0;
+    private int totalscore1 = 0;
+    private int totalscore2 = 0;
     public GameObject Correcto;
     public GameObject Incorrecto;
     public GameObject Correcto2;
@@ -124,8 +128,7 @@ public class ControladorDosJugadores : MonoBehaviour
 
                 if (i == j && j == 0)
                 {
-                    nuevaCarta = cartaOriginal;
-                    
+                    nuevaCarta = cartaOriginal;                    
                 }
                 else
                 {
@@ -200,9 +203,11 @@ public class ControladorDosJugadores : MonoBehaviour
 
     IEnumerator mostrarTurnodos()
     {
-        Turnodos.SetActive(true);
-        yield return new WaitForSeconds(3);
+        cartaOriginal.Visible(false); 
+        Turnodos.SetActive(true);       
+        yield return new WaitForSeconds(4);
         Turnodos.SetActive(false);
+        cartaOriginal.Visible(true);
     }
 
     IEnumerator mostrarIncorrecto()//Se muestra el letrero de incorrecto al fallar un par
@@ -225,16 +230,14 @@ public class ControladorDosJugadores : MonoBehaviour
 
     public void mostrarGanador()
     {
+        letreroGanador.SetActive(true);
         GanadorUno.SetActive(true);
-        
-        
     }
 
     public void mostrarGanadorDos()
     {
+        letreroGanador.SetActive(true);
         GanadorDos.SetActive(true);
-        
-        
     }
 
     public void mostrarEmpate()
@@ -244,32 +247,24 @@ public class ControladorDosJugadores : MonoBehaviour
 
     private IEnumerator RevisarPar()
     {
-        int totalscore1 = 0;
-        int totalscore2 = 0;
+        
         if (pares[_primerSeleccion.id] == _segundaSeleccion.id)
         {
-            _score += 100;
-            
+            _score += 100;            
             StartCoroutine(mostrarCorrecto());
             Debug.Log("Score: " + _score);
             paresEncontrados += 1;
             if (paresEncontrados == paresTotales)
             {
                 print("ganaste");
-                var idJugador = database.ObtenerJugador(DataMantainer.Nombre);
-                //database.RegistrarScore(idJugador, DataMantainer.IdMateria, errores, _score);
-                
+                var idJugador = database.ObtenerJugador(DataMantainer.Nombre);               
                 jugador ++;
-                Debug.Log(jugador);
-                //interfazResultados.SetActive(true);
-                //var resultados = database.ObtenerPuntajes(DataMantainer.IdMateria);
-                //tablaResultados.CargarPuntajes(resultados);
-                totalscore1 = _score;
-                
-                if (jugador==2)
-                {
+                Debug.Log(jugador);                
+                if (jugador == 2)
+                {                    
                     player1.SetActive(false);
-                    StartCoroutine(mostrarTurnodos());                    
+                    StartCoroutine(mostrarTurnodos());
+                    totalscore1 = _score;
                     _score = 0;
                     destruirclon();
                     ConfigurarPartida();                    
@@ -278,44 +273,35 @@ public class ControladorDosJugadores : MonoBehaviour
                     StartCoroutine(mostrarCartaOriginal());
                     CrearCartas();
                     paresEncontrados = 0;
-                    totalscore2 = _score;
-                    Debug.Log(jugador);
                     player2.SetActive(true);
                 }
                 if (jugador == 3)
                 {
+                    totalscore2 = _score;
                     MenuGanador.SetActive(true);
                     if (totalscore1 > totalscore2)
                     {
                         mostrarGanador();
                         
-                    }
-                    else if (totalscore2>totalscore1)
+                    }else if (totalscore2>totalscore1)
                     {
                         mostrarGanadorDos();
-                    }else
-                    {
+                    }else{
                         mostrarEmpate();
-
                     }
                 }
-                Debug.Log(jugador);
-
-
-            }
-
-            
+                Debug.Log("primero "+totalscore1+"\n segundo "+totalscore2);
+            }            
         }
         else
         {
             yield return new WaitForSeconds(.5f);
-            _primerSeleccion.Esconder();
-            _segundaSeleccion.Esconder();
+            _primerSeleccion.Voltear();
+            _segundaSeleccion.Voltear();
             _score -= 50;
             StartCoroutine(mostrarIncorrecto());
             errores++;
         }
-
         _primerSeleccion = null;
         _segundaSeleccion = null;
 

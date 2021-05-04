@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CartaMemoramaDos : MonoBehaviour
 {
     // Referencias
     [SerializeField] private ControladorDosJugadores controlador;
     [SerializeField] public GameObject reversoDeCarta;         // Permite llamar desde codigo la parte de atras de la carta para activarla/desactivarla
-
+    SpriteRenderer carta;
     // Variables
     private int _id;
 
@@ -34,7 +35,7 @@ public class CartaMemoramaDos : MonoBehaviour
         }
     }
 
-    public void Esconder()
+    public void Voltear()
     {
         reversoDeCarta.SetActive(true);
     }
@@ -44,9 +45,14 @@ public class CartaMemoramaDos : MonoBehaviour
         yield return new WaitForSeconds(4);
         reversoDeCarta.SetActive(true);
     }
+    public void Visible(bool esta)
+    {
+        carta.enabled=esta;
+    }
     // Start is called before the first frame update
     void Start()
     {
+        carta = GetComponent<SpriteRenderer>();
         StartCoroutine(MostrarInicio());
     }
 }

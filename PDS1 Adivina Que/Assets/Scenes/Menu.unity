@@ -2606,7 +2606,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: eb5a231d58ff7c74fb9ef599d71009d1, type: 3}
   instructions:
   - "Al comenzar un juego nuevo podr\xE1s ver todas las cartas por un momento. \xA1Pon
-    atenci\xF3n!, intenta memorizar las posiciones de las cartas y identifica sus
+    atenci\xF3n!, intenta memorizar las posiciones de las cartas e identifica sus
     pares correspondientes."
   - Una vez transcurridos unos segundos las cartas son cubiertas y el juego comienza.
     El objetivo es asociar las cartas con sus pares correspondientes hasta revelar
@@ -24464,7 +24464,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bienvenid@ a "Adivina Quien?"
+  m_text: Bienvenid@ a "Adivina Que?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a685aa69fd84d494a80e0b0978d5ed39, type: 2}
   m_sharedMaterial: {fileID: -4855698762537038209, guid: a685aa69fd84d494a80e0b0978d5ed39,

@@ -21,7 +21,7 @@ public class Instrucciones : MonoBehaviour
         else
         {
             tema.text = DataMantainer.Materia;
-            instrucciones.text = "Relaciona las cartartas correspondientes de diferentes temas.";
+            instrucciones.text = "Relaciona las cartas correspondientes de diferentes temas.";
         }
     }
 
